@@ -1,0 +1,544 @@
+================================================================================
+KOREAN DICTIONARY API REFERENCE
+================================================================================
+Base URL: https://krdict.korean.go.kr/api/search
+
+================================================================================
+BASIC PARAMETERS
+================================================================================
+
+key (string, REQUIRED)
+  - 32 hexadecimal digits authentication key
+
+q (string, REQUIRED)
+  - Search term (UTF-8 encoded)
+
+start (integer, optional)
+  - Starting number for search
+  - Range: 1-1000
+  - Default: 1
+
+num (integer, optional)
+  - Number of search results to display
+  - Range: 10-100
+  - Default: 10
+
+sort (string, optional)
+  - Sort method
+  - Default: dict
+  - Values:
+    * dict    = 사전 순 (dictionary order)
+    * popular = 많이 찾은 순 (most searched)
+
+part (string, optional)
+  - Search target
+  - Default: word
+  - Values:
+    * word = 어휘 (vocabulary)
+    * ip   = 관용구, 속담 (idioms, proverbs)
+    * dfn  = 뜻풀이 (definitions)
+    * exam = 용례 (examples)
+
+translated (string, optional)
+  - Whether to enable multilingual translation
+  - Default: n
+  - Values: n, y
+
+trans_lang (string, optional)
+  - Translation language (requires translated=y)
+  - Default: 0 (all languages)
+  - Multiple values separated by commas
+  - Codes:
+    0  = 전체 (all)
+    1  = 영어 (English)
+    2  = 일본어 (Japanese)
+    3  = 프랑스어 (French)
+    4  = 스페인어 (Spanish)
+    5  = 아랍어 (Arabic)
+    6  = 몽골어 (Mongolian)
+    7  = 베트남어 (Vietnamese)
+    8  = 타이어 (Thai)
+    9  = 인도네시아어 (Indonesian)
+    10 = 러시아어 (Russian)
+    11 = 중국어 (Chinese)
+
+advanced (string, optional)
+  - Whether to search in detail
+  - Default: n
+  - Values: n, y
+  - Note: Must be 'y' to use advanced parameters below
+
+================================================================================
+ADVANCED PARAMETERS (requires advanced=y)
+================================================================================
+
+target (integer, optional)
+  - What to find
+  - Default: 1 (title)
+  - Codes:
+    1  = 어휘(표제어) (vocabulary/headword)
+    2  = 뜻풀이 (definition)
+    3  = 용례 (example)
+    4  = 원어 (original language)
+    5  = 발음 (pronunciation)
+    6  = 활용 (conjugation)
+    7  = 활용의 준말 (abbreviated conjugation)
+    8  = 관용구 (idiom)
+    9  = 속담 (proverb)
+    10 = 참고 정보 (reference information)
+
+lang (integer, optional)
+  - Language (requires target=4)
+  - Default: 0 (all)
+  - Codes:
+    0  = 전체 (all)
+    1  = 고유어 (native Korean)
+    2  = 한자 (Chinese characters)
+    3  = 안 밝힘 (unknown)
+    4  = 영어 (English)
+    5  = 그리스어 (Greek)
+    6  = 네덜란드어 (Dutch)
+    7  = 노르웨어어 (Norwegian)
+    8  = 독일어 (German)
+    9  = 라틴어 (Latin)
+    10 = 러시아어 (Russian)
+    11 = 루마니아어 (Romanian)
+    12 = 마오리어 (Maori)
+    13 = 말레이어 (Malay)
+    14 = 몽골어 (Mongolian)
+    15 = 바스크어 (Basque)
+    16 = 버마어 (Burmese)
+    17 = 베트남어 (Vietnamese)
+    18 = 불가리어어 (Bulgarian)
+    19 = 산스크리트어 (Sanskrit)
+    20 = 세르보ᆞ크로아트어 (Serbo-Croatian)
+    21 = 스와힐리어 (Swahili)
+    22 = 스웨덴어 (Swedish)
+    23 = 아랍어 (Arabic)
+    24 = 아일랜드어 (Irish)
+    25 = 에스파냐어 (Spanish)
+    26 = 우즈베크어 (Uzbek)
+    27 = 우크라이나어 (Ukrainian)
+    28 = 이탈리아어 (Italian)
+    29 = 인도네시아어 (Indonesian)
+    30 = 일본어 (Japanese)
+    31 = 중국어 (Chinese)
+    32 = 체코어 (Czech)
+    33 = 캄보디아어 (Cambodian)
+    34 = 케추아어 (Quechua)
+    35 = 타갈로그어 (Tagalog)
+    36 = 타이어 (Thai)
+    37 = 터키어 (Turkish)
+    38 = 티베트어 (Tibetan)
+    39 = 페르시아어 (Persian)
+    40 = 포르투갈어 (Portuguese)
+    41 = 폴란드어 (Polish)
+    42 = 프랑스어 (French)
+    43 = 프로방스어 (Provençal)
+    44 = 핀란드어 (Finnish)
+    45 = 헝가리어 (Hungarian)
+    46 = 히브리어 (Hebrew)
+    47 = 힌디어 (Hindi)
+    48 = 기타어 (other)
+    49 = 덴마크어 (Danish)
+
+method (string, optional)
+  - Search method
+  - Default: exact
+  - Values:
+    * exact   = 일치 검색 (exact match)
+    * include = 포함 검색 (contains)
+    * start   = 시작 (starts with)
+    * end     = 끝 (ends with)
+
+type1 (array of string, optional)
+  - Category 1
+  - Default: all
+  - Multiple values separated by commas
+  - Values:
+    * all        = all
+    * word       = 단어 (word)
+    * phrase     = 구 (phrase)
+    * expression = 문법 표현 (grammatical expression)
+
+type2 (array of string, optional)
+  - Category 2
+  - Default: all
+  - Multiple values separated by commas
+  - Values:
+    * all      = all
+    * native   = 고유어 (native Korean)
+    * chinese  = 한자어 (Sino-Korean)
+    * loanword = 외래어 (loanword)
+    * hybrid   = 혼종어 (hybrid)
+
+level (array of string, optional)
+  - Vocabulary by grade
+  - Default: all
+  - Multiple values separated by commas
+  - Values:
+    * all    = all
+    * level1 = 초급 (beginner)
+    * level2 = 중급 (intermediate)
+    * level3 = 고급 (advanced)
+
+pos (array of integer, optional)
+  - Parts of speech
+  - Default: 0 (all)
+  - Multiple values separated by commas
+  - Codes:
+    0  = 전체 (all)
+    1  = 명사 (noun)
+    2  = 대명사 (pronoun)
+    3  = 수사 (numeral)
+    4  = 조사 (particle)
+    5  = 동사 (verb)
+    6  = 형용사 (adjective)
+    7  = 관형사 (determiner)
+    8  = 부사 (adverb)
+    9  = 감탄사 (interjection)
+    10 = 접사 (affix)
+    11 = 의존 명사 (dependent noun)
+    12 = 보조 동사 (auxiliary verb)
+    13 = 보조 형용사 (auxiliary adjective)
+    14 = 어미 (ending)
+    15 = 품사 없음 (no part of speech)
+
+multimedia (array of integer, optional)
+  - Multimedia information
+  - Default: 0 (all)
+  - Multiple values separated by commas
+  - Codes:
+    0 = 전체 (all)
+    1 = 사진 (photo)
+    2 = 삽화 (illustration)
+    3 = 동영상 (video)
+    4 = 애니메이션 (animation)
+    5 = 소리 (sound)
+    6 = 없음 (none)
+
+letter_s (integer, optional)
+  - Start syllable count
+  - Default: 1
+  - Range: 1+
+
+letter_e (integer, optional)
+  - End syllable count
+  - Default: 0 (all syllables)
+  - Range: 0+
+
+sense_cat (array of integer, optional)
+  - Semantic category
+  - Default: 0 (all)
+  - Multiple values separated by commas
+  - Codes:
+    0   = 전체 (all)
+    
+    HUMAN (인간):
+    1   = 인간 > 전체 (human > all)
+    2   = 인간 > 사람의 종류 (human > types of people)
+    3   = 인간 > 신체 부위 (human > body parts)
+    4   = 인간 > 체력 상태 (human > physical condition)
+    5   = 인간 > 생리 현상 (human > physiological phenomena)
+    6   = 인간 > 감각 (human > senses)
+    7   = 인간 > 감정 (human > emotions)
+    8   = 인간 > 성격 (human > personality)
+    9   = 인간 > 태도 (human > attitude)
+    10  = 인간 > 용모 (human > appearance)
+    11  = 인간 > 능력 (human > ability)
+    12  = 인간 > 신체 변화 (human > physical changes)
+    13  = 인간 > 신체 행위 (human > physical actions)
+    14  = 인간 > 신체에 가하는 행위 (human > actions on body)
+    15  = 인간 > 인지 행위 (human > cognitive actions)
+    16  = 인간 > 소리 (human > sounds)
+    17  = 인간 > 신체 내부 구성 (human > internal body structure)
+    
+    LIFE (삶):
+    18  = 삶 > 전체 (life > all)
+    19  = 삶 > 삶의 상태 (life > state of life)
+    20  = 삶 > 삶의 행위 (life > life actions)
+    21  = 삶 > 일상 행위 (life > daily actions)
+    22  = 삶 > 친족 관계 (life > family relations)
+    23  = 삶 > 가족 행사 (life > family events)
+    24  = 삶 > 여가 도구 (life > leisure tools)
+    25  = 삶 > 여가 시설 (life > leisure facilities)
+    26  = 삶 > 여가 활동 (life > leisure activities)
+    27  = 삶 > 병과 증상 (life > diseases and symptoms)
+    28  = 삶 > 치료 행위 (life > treatment actions)
+    29  = 삶 > 치료 시설 (life > medical facilities)
+    30  = 삶 > 약품류 (life > medicines)
+    
+    FOOD LIFE (식생활):
+    31  = 식생활 > 전체 (food life > all)
+    32  = 식생활 > 음식 (food life > food)
+    33  = 식생활 > 채소 (food life > vegetables)
+    34  = 식생활 > 곡류 (food life > grains)
+    35  = 식생활 > 과일 (food life > fruits)
+    36  = 식생활 > 음료 (food life > beverages)
+    37  = 식생활 > 식재료 (food life > ingredients)
+    38  = 식생활 > 조리 도구 (food life > cooking utensils)
+    39  = 식생활 > 식생활 관련 장소 (food life > food-related places)
+    40  = 식생활 > 맛 (food life > taste)
+    41  = 식생활 > 식사 및 조리 행위 (food life > eating and cooking)
+    
+    CLOTHING LIFE (의생활):
+    42  = 의생활 > 전체 (clothing life > all)
+    43  = 의생활 > 옷 종류 (clothing life > types of clothes)
+    44  = 의생활 > 옷감 (clothing life > fabric)
+    45  = 의생활 > 옷의 부분 (clothing life > parts of clothes)
+    46  = 의생활 > 모자, 신발, 장신구 (clothing life > hats, shoes, accessories)
+    47  = 의생활 > 의생활 관련 장소 (clothing life > clothing-related places)
+    48  = 의생활 > 의복 착용 상태 (clothing life > state of wearing)
+    49  = 의생활 > 의복 착용 행위 (clothing life > wearing actions)
+    50  = 의생활 > 미용 행위 (clothing life > beauty care)
+    
+    HOUSING LIFE (주생활):
+    51  = 주생활 > 전체 (housing life > all)
+    52  = 주생활 > 건물 종류 (housing life > types of buildings)
+    53  = 주생활 > 주거 형태 (housing life > types of housing)
+    54  = 주생활 > 주거 지역 (housing life > residential areas)
+    55  = 주생활 > 생활 용품 (housing life > household items)
+    56  = 주생활 > 주택 구성 (housing life > house structure)
+    57  = 주생활 > 주거 상태 (housing life > housing conditions)
+    58  = 주생활 > 주거 행위 (housing life > housing actions)
+    59  = 주생활 > 가사 행위 (housing life > housework)
+    
+    SOCIAL LIFE (사회 생활):
+    60  = 사회 생활 > 전체 (social life > all)
+    61  = 사회 생활 > 인간관계 (social life > human relations)
+    62  = 사회 생활 > 소통 수단 (social life > communication means)
+    63  = 사회 생활 > 교통 수단 (social life > transportation)
+    64  = 사회 생활 > 교통 이용 장소 (social life > transportation places)
+    65  = 사회 생활 > 매체 (social life > media)
+    66  = 사회 생활 > 직장 (social life > workplace)
+    67  = 사회 생활 > 직위 (social life > position/title)
+    68  = 사회 생활 > 직업 (social life > occupation)
+    69  = 사회 생활 > 사회 행사 (social life > social events)
+    70  = 사회 생활 > 사회 생활 상태 (social life > social life state)
+    71  = 사회 생활 > 사회 활동 (social life > social activities)
+    72  = 사회 생활 > 교통 이용 행위 (social life > transportation use)
+    73  = 사회 생활 > 직장 생활 (social life > work life)
+    74  = 사회 생활 > 언어 행위 (social life > linguistic acts)
+    75  = 사회 생활 > 통신 행위 (social life > communication acts)
+    76  = 사회 생활 > 말 (social life > speech)
+    
+    ECONOMIC LIFE (경제 생활):
+    77  = 경제 생활 > 전체 (economic life > all)
+    78  = 경제 생활 > 경제 행위 주체 (economic life > economic actors)
+    79  = 경제 생활 > 경제 행위 장소 (economic life > economic places)
+    80  = 경제 생활 > 경제 수단 (economic life > economic means)
+    81  = 경제 생활 > 경제 산물 (economic life > economic products)
+    82  = 경제 생활 > 경제 상태 (economic life > economic state)
+    83  = 경제 생활 > 경제 행위 (economic life > economic activities)
+    
+    EDUCATION (교육):
+    84  = 교육 > 전체 (education > all)
+    85  = 교육 > 교수 학습 주체 (education > teaching-learning subjects)
+    86  = 교육 > 전공과 교과목 (education > majors and subjects)
+    87  = 교육 > 교육 기관 (education > educational institutions)
+    88  = 교육 > 학교 시설 (education > school facilities)
+    89  = 교육 > 학습 관련 사물 (education > learning-related objects)
+    90  = 교육 > 학문 용어 (education > academic terms)
+    91  = 교육 > 교수 학습 행위 (education > teaching-learning actions)
+    92  = 교육 > 학문 행위 (education > academic activities)
+    
+    RELIGION (종교):
+    93  = 종교 > 전체 (religion > all)
+    94  = 종교 > 종교 유형 (religion > types of religion)
+    95  = 종교 > 종교 활동 장소 (religion > religious places)
+    96  = 종교 > 종교인 (religion > religious people)
+    97  = 종교 > 종교어 (religion > religious terms)
+    98  = 종교 > 신앙 대상 (religion > objects of faith)
+    99  = 종교 > 종교 활동 도구 (religion > religious tools)
+    100 = 종교 > 종교 행위 (religion > religious acts)
+    
+    CULTURE (문화):
+    101 = 문화 > 전체 (culture > all)
+    102 = 문화 > 문화 활동 주체 (culture > cultural actors)
+    103 = 문화 > 음악 (culture > music)
+    104 = 문화 > 미술 (culture > art)
+    105 = 문화 > 문학 (culture > literature)
+    106 = 문화 > 예술 (culture > arts)
+    107 = 문화 > 대중 문화 (culture > popular culture)
+    108 = 문화 > 전통 문화 (culture > traditional culture)
+    109 = 문화 > 문화 생활 장소 (culture > cultural places)
+    110 = 문화 > 문화 활동 (culture > cultural activities)
+    
+    POLITICS & ADMINISTRATION (정치와 행정):
+    111 = 정치와 행정 > 전체 (politics & admin > all)
+    112 = 정치와 행정 > 공공 기관 (politics & admin > public institutions)
+    113 = 정치와 행정 > 사법 및 치안 주체 (politics & admin > judicial/security)
+    114 = 정치와 행정 > 무기 (politics & admin > weapons)
+    115 = 정치와 행정 > 정치 및 치안 상태 (politics & admin > political/security state)
+    116 = 정치와 행정 > 정치 및 행정 행위 (politics & admin > political/admin acts)
+    117 = 정치와 행정 > 사법 및 치안 행위 (politics & admin > judicial/security acts)
+    118 = 정치와 행정 > 정치 및 행정 주체 (politics & admin > political/admin actors)
+    
+    NATURE (자연):
+    119 = 자연 > 전체 (nature > all)
+    120 = 자연 > 지형 (nature > topography)
+    121 = 자연 > 지표면 사물 (nature > surface objects)
+    122 = 자연 > 천체 (nature > celestial bodies)
+    123 = 자연 > 자원 (nature > resources)
+    124 = 자연 > 재해 (nature > disasters)
+    125 = 자연 > 기상 및 기후 (nature > weather and climate)
+    
+    ANIMALS & PLANTS (동식물):
+    126 = 동식물 > 전체 (animals & plants > all)
+    127 = 동식물 > 동물류 (animals & plants > animals)
+    128 = 동식물 > 곤충류 (animals & plants > insects)
+    129 = 동식물 > 식물류 (animals & plants > plants)
+    130 = 동식물 > 동물의 부분 (animals & plants > animal parts)
+    131 = 동식물 > 식물의 부분 (animals & plants > plant parts)
+    132 = 동식물 > 동식물 행위 (animals & plants > animal/plant actions)
+    133 = 동식물 > 동물 소리 (animals & plants > animal sounds)
+    
+    CONCEPTS (개념):
+    134 = 개념 > 전체 (concepts > all)
+    135 = 개념 > 모양 (concepts > shape)
+    136 = 개념 > 성질 (concepts > property)
+    137 = 개념 > 속도 (concepts > speed)
+    138 = 개념 > 밝기 (concepts > brightness)
+    139 = 개념 > 온도 (concepts > temperature)
+    140 = 개념 > 색깔 (concepts > color)
+    141 = 개념 > 수 (concepts > number)
+    142 = 개념 > 세는 말 (concepts > counter)
+    143 = 개념 > 양 (concepts > quantity)
+    144 = 개념 > 정도 (concepts > degree)
+    145 = 개념 > 순서 (concepts > order)
+    146 = 개념 > 빈도 (concepts > frequency)
+    147 = 개념 > 시간 (concepts > time)
+    148 = 개념 > 위치 및 방향 (concepts > position and direction)
+    149 = 개념 > 지역 (concepts > region)
+    150 = 개념 > 지시 (concepts > indication)
+    151 = 개념 > 접속 (concepts > conjunction)
+    152 = 개념 > 의문 (concepts > question)
+    153 = 개념 > 인칭 (concepts > person)
+
+subject_cat (array of integer, optional)
+  - Topic and situation categories
+  - Default: 0 (all)
+  - Multiple values separated by commas
+  - Codes:
+    0   = 전체 (all)
+    1   = 인사하기 (greeting)
+    2   = 소개하기(자기소개) (introduction - self)
+    3   = 소개하기(가족소개) (introduction - family)
+    4   = 개인 정보 교환하기 (exchanging personal information)
+    5   = 위치 표현하기 (expressing location)
+    6   = 길찾기 (finding directions)
+    7   = 교통 이용하기 (using transportation)
+    8   = 물건 사기 (buying things)
+    9   = 음식 주문하기 (ordering food)
+    10  = 요리 설명하기 (describing food)
+    11  = 시간 표현하기 (expressing time)
+    12  = 날짜 표현하기 (expressing date)
+    13  = 요일 표현하기 (expressing day of week)
+    14  = 날씨와 계절 (weather and seasons)
+    15  = 하루 생활 (daily life)
+    16  = 학교생활 (school life)
+    17  = 한국 생활 (life in Korea)
+    18  = 약속하기 (making appointments)
+    19  = 전화하기 (making phone calls)
+    20  = 감사하기 (expressing gratitude)
+    21  = 사과하기 (apologizing)
+    22  = 여행 (travel)
+    23  = 주말 및 휴가 (weekends and holidays)
+    24  = 취미 (hobbies)
+    25  = 가족 행사 (family events)
+    26  = 건강 (health)
+    27  = 병원 이용하기 (using hospital)
+    28  = 약국 이용하기 (using pharmacy)
+    29  = 공공 기관 이용하기(도서관) (using public institutions - library)
+    30  = 공공 기관 이용하기(우체국) (using public institutions - post office)
+    31  = 공공 기관 이용하기(출입국 관리 사무소) (using public institutions - immigration)
+    32  = 초대와 방문 (invitation and visit)
+    33  = 집 구하기 (finding a house)
+    34  = 집안일 (housework)
+    35  = 감정, 기분 표현하기 (expressing feelings and mood)
+    36  = 성격 표현하기 (describing personality)
+    37  = 복장 표현하기 (describing clothing)
+    38  = 외모 표현하기 (describing appearance)
+    39  = 영화 보기 (watching movies)
+    40  = 개인 정보 교환하기 (exchanging personal information)
+    41  = 교통 이용하기 (using transportation)
+    42  = 지리 정보 (geographical information)
+    43  = 물건 사기 (buying things)
+    44  = 음식 설명하기 (describing food)
+    45  = 요리 설명하기 (describing cooking)
+    46  = 날씨와 계절 (weather and seasons)
+    47  = 학교생활 (school life)
+    48  = 한국 생활 (life in Korea)
+    49  = 직업과 진로 (occupation and career)
+    50  = 직장 생활 (work life)
+    51  = 여행 (travel)
+    52  = 주말 및 휴가 (weekends and holidays)
+    53  = 취미 (hobbies)
+    54  = 가족 행사 (family events)
+    55  = 가족 행사(명절) (family events - holidays)
+    56  = 건강 (health)
+    57  = 공공기관 이용하기 (using public institutions)
+    58  = 초대와 방문 (invitation and visit)
+    59  = 집 구하기 (finding a house)
+    60  = 집안일 (housework)
+    61  = 감정, 기분 표현하기 (expressing feelings and mood)
+    62  = 성격 표현하기 (describing personality)
+    63  = 복장 표현하기 (describing clothing)
+    64  = 외모 표현하기 (describing appearance)
+    65  = 공연과 감상 (performance and appreciation)
+    66  = 대중 매체 (mass media)
+    67  = 컴퓨터와 인터넷 (computer and internet)
+    68  = 사건, 사고, 재해 기술하기 (describing incidents, accidents, disasters)
+    69  = 환경 문제 (environmental issues)
+    70  = 문화 비교하기 (comparing cultures)
+    71  = 인간관계 (human relations)
+    72  = 한국의 문학 (Korean literature)
+    73  = 문제 해결하기(분실 및 고장) (problem solving - loss and malfunction)
+    74  = 실수담 말하기 (talking about mistakes)
+    75  = 연애와 결혼 (dating and marriage)
+    76  = 언어 (language)
+    77  = 지리 정보 (geographical information)
+    78  = 경제∙경영 (economy and management)
+    79  = 식문화 (food culture)
+    80  = 기후 (climate)
+    81  = 교육 (education)
+    82  = 직업과 진로 (occupation and career)
+    83  = 직장 생활 (work life)
+    84  = 여가 생활 (leisure life)
+    85  = 보건과 의료 (health and medical care)
+    86  = 주거 생활 (housing life)
+    87  = 심리 (psychology)
+    88  = 외양 (appearance)
+    89  = 대중문화 (popular culture)
+    90  = 컴퓨터와 인터넷 (computer and internet)
+    91  = 사회 문제 (social issues)
+    92  = 환경 문제 (environmental issues)
+    93  = 사회 제도 (social systems)
+    94  = 문화 차이 (cultural differences)
+    95  = 인간관계 (human relations)
+    96  = 예술 (arts)
+    97  = 건축 (architecture)
+    98  = 과학과 기술 (science and technology)
+    99  = 법 (law)
+    100 = 스포츠 (sports)
+    101 = 언론 (press/journalism)
+    102 = 언어 (language)
+    103 = 역사 (history)
+    104 = 정치 (politics)
+    105 = 종교 (religion)
+    106 = 철학∙윤리 (philosophy and ethics)
+
+================================================================================
+NOTES
+================================================================================
+
+- Parameters that accept arrays can have multiple values separated by commas
+- UTF-8 encoding is required for Korean text in the 'q' parameter
+- Advanced parameters only work when advanced=y
+- The lang parameter only works when target=4 (original language)
+- Default value 0 for letter_e means all syllables (no upper limit)
+- All numeric parameters should be passed as strings in the URL
+
+================================================================================
+END OF REFERENCE
+================================================================================
