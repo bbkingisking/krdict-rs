@@ -1,6 +1,6 @@
 # krdict
 
-A Rust CLI wrapper over the [Korean Learners' Dictionary (한국어기초사전) API](https://krdict.korean.go.kr/eng/openApi/openApiInfo) -- sends the same requests the API accepts, but returns clean, pretty-printed JSON instead of the API's native XML.
+A Rust CLI wrapper over the [Korean Learners' Dictionary (한국어기초사전) API](https://krdict.korean.go.kr/eng/openApi/openApiInfo), sends the same requests the API accepts, but returns clean, pretty-printed JSON instead of the API's native XML.
 
 ## Setup
 
@@ -27,7 +27,7 @@ krdict search --query 학교 --translated --trans-lang 1 --num 20
 
 ### `view`
 
-Look up the full dictionary entry for a word, or a specific entry by its target code. The default method, `word-info`, needs the word's homograph number (`sup_no`) glued directly onto the query -- e.g. `사과1` for the first "사과" entry -- since that's what disambiguates entries that share spelling; `search` results include `sup_no` for each item so you know which number to use. `target-code` takes the numeric `target_code` from a `search` or `view` result instead:
+Look up the full dictionary entry for a word, or a specific entry by its target code. The default method, `word-info`, needs the word's homograph number (`sup_no`) glued directly onto the query, e.g. `사과1` for the first "사과" entry -- since that's what disambiguates entries that share spelling; `search` results include `sup_no` for each item so you know which number to use. `target-code` takes the numeric `target_code` from a `search` or `view` result instead:
 
 ```sh
 krdict view --query 사과1
@@ -77,7 +77,7 @@ Both subcommands print pretty-printed JSON to stdout. `search` responses are des
 }
 ```
 
-`krdict view --query 사과1` (example/multimedia lists trimmed for brevity -- a real entry can have several of each):
+`krdict view --query 사과1` (example/multimedia lists trimmed for brevity, a real entry can have several of each):
 
 ```json
 {
