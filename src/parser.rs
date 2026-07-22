@@ -57,13 +57,20 @@ fn parse_word_info(node: &roxmltree::Node) -> Option<WordInfo> {
         .unwrap_or(0);
     let word_unit = get_text(node, "word_unit")?;
     
-    // A word can genuinely have more than one part of speech (e.g. a word
-    // that functions as both a noun and an adverb), so every <pos> tag is kept.
-    let pos: Vec<String> = node
+    // The API repeats <pos> verbatim for every entry (seemingly an XML
+    // templating quirk on their end, since a word_info's homographs already
+    // get distinct sup_no values rather than multiple <pos> tags), so
+    // duplicates are collapsed while still preserving order.
+    let mut pos = Vec::new();
+    for text in node
         .children()
         .filter(|n| n.has_tag_name("pos"))
         .filter_map(|n| n.text().map(|t| t.trim().to_string()))
-        .collect();
+    {
+        if !pos.contains(&text) {
+            pos.push(text);
+        }
+    }
 
     let word_type = get_text(node, "word_type");
     let word_grade = get_text(node, "word_grade");
@@ -366,6 +373,7 @@ mod tests {
                         <word>foo</word>
                         <sup_no>0</sup_no>
                         <word_unit>foo</word_unit>
+                        <pos>명사</pos>
                         <pos>명사</pos>
                         <pos>부사</pos>
                         <conju_info>

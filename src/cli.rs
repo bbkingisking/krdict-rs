@@ -13,7 +13,7 @@ pub struct Cli {
     pub export: Option<PathBuf>,
 
     // Suppress stdout and stderr output
-    #[arg(short, long, global = true)]
+    #[arg(long, global = true)]
     pub quiet: bool,
 }
 
