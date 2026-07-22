@@ -88,7 +88,8 @@ pub struct WordInfo {
     pub word: String,
     pub sup_no: u32,
     pub word_unit: String,
-    pub pos: String,
+    #[serde(default)]
+    pub pos: Vec<String>,
     #[serde(default)]
     pub word_type: Option<String>,
     #[serde(default)]
